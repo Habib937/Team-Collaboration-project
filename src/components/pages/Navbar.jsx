@@ -14,7 +14,7 @@ function Navbar() {
 
                 <div className=" md:flex space-x-6">
                     <Link className="hover:text-gray-500  text-xl font-semibold">Dashboard</Link>
-                    <Link className="hover:text-gray-500 text-xl font-semibold">Projects</Link>
+                    <Link to={"/blogPage"} className="hover:text-gray-500 text-xl font-semibold">Blogs</Link>
                     <Link className="hover:text-gray-500 text-xl font-semibold">Contact</Link>
                 </div>
 
