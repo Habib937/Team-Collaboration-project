@@ -18,12 +18,10 @@ function Navbar() {
                     <Link className="hover:text-gray-500 text-xl font-semibold">Contact</Link>
                 </div>
 
-
                 <div className=" md:flex space-x-4">
                     <input type="text" placeholder='Search' className='px-4 py-2 border border-white rounded-full' />
                     <button className="bg-white text-blue-600 px-4 py-2 rounded text-sm font-semibold">Login</button>
                 </div>
-
 
             </div>
 
