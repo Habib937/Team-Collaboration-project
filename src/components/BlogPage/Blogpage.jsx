@@ -69,7 +69,7 @@ const BlogPage = () => {
         <div className="card bg-base-100 shadow-xl">
           <figure>
             <img
-              src="https://www.wrappixel.com/demos/ui-kit/wrapkit/assets/images/blog/blog-home/img11.jpg"
+              src="https://i.ibb.co.com/4ZMvB37x/pic-3-1.jpg"
               alt="Communication"
               className="w-full h-64 object-cover"
             />
