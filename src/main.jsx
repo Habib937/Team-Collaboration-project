@@ -7,7 +7,8 @@ import Home from "./components/pages/Home";
 import BlogPage from "./components/BlogPage/Blogpage";
 import Login from "./Authentication/Login";
 import Register from "./Authentication/Register";
-import AuthProvider from "./AuthProvider";
+import AuthProvider from "./Firebase/AuthProvider";
+import AboutUs from "./pages/AboutUs/AboutUs";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
         element: <BlogPage></BlogPage>,
       },
       {
+        path: "aboutus",
+        element: <AboutUs></AboutUs>,
+      },
+      {
         path: "login",
         element: <Login></Login>,
       },
@@ -36,9 +41,7 @@ const router = createBrowserRouter([
 ]);
 
 createRoot(document.getElementById("root")).render(
-
-    <AuthProvider>
-      <RouterProvider router={router} />
-    </AuthProvider>
-
+  <AuthProvider>
+    <RouterProvider router={router} />
+  </AuthProvider>
 );

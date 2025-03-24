@@ -1,31 +1,38 @@
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
-import { useContext } from "react";
 
 import { HiOutlineMail } from "react-icons/hi";
 import { RiLockPasswordLine } from "react-icons/ri";
-import { Link } from "react-router-dom";
-import { Context } from "../AuthProvider";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import useAuth from "../Hooks/useAuth";
 
 const Login = () => {
-  let {loginSetup, googleSign} = useContext(Context)
+  let { loginSetup, googleSign } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state || "/";
 
-  let handleSubmit=(e)=>{
-    e.preventDefault()
-    let email = e.target.email.value
-    let password=e.target.password.value
-    // console.log(email,password)
-    loginSetup(email,password)
-    .then((res)=> {
-      alert ("Login Successfull")
-    })
-  }
-  let handleGoogle = ()=>{
-    googleSign()
-    .then((res)=>{
-      alert("Google sign in successfull")
-    })
-  }
+  let handleSubmit = async (e) => {
+    e.preventDefault();
+    let email = e.target.email.value;
+    let password = e.target.password.value;
+
+    try {
+      await loginSetup(email, password);
+      navigate(from);
+    } catch (error) {
+      console.log("Login Error", error);
+    }
+  };
+  let handleGoogle = async () => {
+    try {
+      await googleSign();
+
+      alert("Google sing in successfull");
+    } catch (error) {
+      console.log("Error in Google Sing In", error);
+    }
+  };
   return (
     <div className="flex min-h-screen ">
       <div className="m-auto bg-white rounded-2xl shadow-2xl flex flex-col md:flex-row w-full max-w-4xl">
@@ -53,7 +60,10 @@ const Login = () => {
             <p className="text-[#000000] opacity-70 my-3 text-center">
               or use your email account
             </p>
-            <form onSubmit={handleSubmit} className="flex flex-col items-center">
+            <form
+              onSubmit={handleSubmit}
+              className="flex flex-col items-center"
+            >
               <div className="bg-gray-100 w-64 p-2 flex items-center mb-3 rounded-lg">
                 <HiOutlineMail className="text-gray-400 m-2" />
                 <input
@@ -81,10 +91,15 @@ const Login = () => {
                 Sign In
               </motion.button>
             </form>
-          <div className="ml-44 mt-10">
-          <button onClick={handleGoogle} className="border-2 border-purple-500 text-purple-500 rounded-full px-12 py-2 inline-block font-semibold hover:bg-purple-500 hover:text-white transition duration-300 "> GoogleSign </button>
-          </div>
-
+            <div className="ml-44 mt-10">
+              <button
+                onClick={handleGoogle}
+                className="border-2 border-purple-500 text-purple-500 rounded-full px-12 py-2 inline-block font-semibold hover:bg-purple-500 hover:text-white transition duration-300 "
+              >
+                {" "}
+                GoogleSign{" "}
+              </button>
+            </div>
           </div>
         </motion.div>
         <motion.div
@@ -113,7 +128,6 @@ const Login = () => {
         </motion.div>
       </div>
     </div>
-
   );
 };
 
