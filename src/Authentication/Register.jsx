@@ -4,34 +4,33 @@ import { useContext } from "react";
 import { HiOutlineMail, HiOutlineUser } from "react-icons/hi";
 import { RiLockPasswordLine, RiImageAddLine } from "react-icons/ri";
 import { Link, useNavigate, useNavigation } from "react-router-dom";
-import { Context } from "../AuthProvider";
-import { a } from "framer-motion/client";
+import useAuth from "../Hooks/useAuth";
 
 export default function Register() {
-            let {createRegistered, googleSign, updateUserProfile}= useContext(Context)
-            let link = useNavigate()
-            let handlesubmit = (e)=>{
-                  e.preventDefault()
-                  let name = e.target.name.value
-                  let email=e.target.email.value
-                  let password=e.target.password.value
-                  let photo=e.target.photo.value
-                  let profileUpdates = {
-                    diplayName : name,
-                    photoUrl : photo 
-                  }
-                  // console.log(name,email,password,photo)
-                  createRegistered (email,password) 
-                  .then((res)=> {
-                    updateUserProfile (res.user,profileUpdates)
-                    .then((res)=>{
-                      alert ("Profile Updated")
-                      link("/")
-                    })
-                  })
-            }
-  return (
+  let { createRegistered, googleSign, updateUserProfile } = useAuth();
+  let link = useNavigate();
+  let handlesubmit = async (e) => {
+    e.preventDefault();
+    let name = e.target.name.value;
+    let email = e.target.email.value;
+    let password = e.target.password.value;
+    let photo = e.target.photo.value;
+    let profileUpdates = {
+      displayName: name,
+      photoURL: photo,
+    };
 
+    try {
+      const res = await createRegistered(email, password);
+      await updateUserProfile(res.user, profileUpdates);
+
+      alert("Profile Updated");
+      link("/");
+    } catch (error) {
+      console.log("Error in singup", error);
+    }
+  };
+  return (
     <div className="flex min-h-screen ">
       <div className="m-auto bg-white rounded-2xl shadow-2xl flex flex-col md:flex-row-reverse w-full max-w-4xl">
         <motion.div
@@ -41,7 +40,7 @@ export default function Register() {
           transition={{ duration: 0.5 }}
         >
           <div className="text-left font-bold">
-            <span className="text-purple-500">Historiacl</span>Artifact
+            <span className="text-purple-500">Team</span>Bridge
           </div>
           <div className="py-10">
             <h2 className="text-3xl font-bold text-purple-500 mb-2">
@@ -49,7 +48,10 @@ export default function Register() {
             </h2>
             <div className="border-2 w-10 border-purple-500 inline-block mb-2"></div>
             <div className="flex justify-center my-2"></div>
-            <form onSubmit={handlesubmit} className="flex flex-col items-center">
+            <form
+              onSubmit={handlesubmit}
+              className="flex flex-col items-center"
+            >
               <div className="bg-gray-100 w-64 p-2 flex items-center mb-3 rounded-lg">
                 <HiOutlineUser className="text-gray-400 m-2" />
                 <input
