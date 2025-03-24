@@ -15,7 +15,7 @@ export default function Register() {
           transition={{ duration: 0.5 }}
         >
           <div className="text-left font-bold">
-            <span className="text-purple-500">Historiacl</span>Artifact
+            <span className="text-purple-500">Team</span>Bridge
           </div>
           <div className="py-10">
             <h2 className="text-3xl font-bold text-purple-500 mb-2">
