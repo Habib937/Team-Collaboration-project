@@ -1,3 +1,3 @@
 
 #Live Link : 
-https://capable-lokum-98b8e9.netlify.app/
+https://lucky-snickerdoodle-05b3db.netlify.app/
