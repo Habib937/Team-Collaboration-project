@@ -5,6 +5,9 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "./components/pages/Root";
 import Home from "./components/pages/Home";
 import BlogPage from "./components/BlogPage/Blogpage";
+import Login from "./Authentication/Login";
+import Register from "./Authentication/Register";
+import AuthProvider from "./AuthProvider";
 
 const router = createBrowserRouter([
   {
@@ -17,15 +20,25 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/blogPage",
+        path: "blogPage",
         element: <BlogPage></BlogPage>,
+      },
+      {
+        path: "login",
+        element: <Login></Login>,
+      },
+      {
+        path: "registration",
+        element: <Register></Register>,
       },
     ],
   },
 ]);
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <RouterProvider router={router} />
-  </StrictMode>
+
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
+
 );
