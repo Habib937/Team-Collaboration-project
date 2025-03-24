@@ -40,8 +40,8 @@ const BlogPage = () => {
         </div>
 
         <div className="grid md:grid-cols-3 gap-6">
-          {blodCard.map((blog) => (
-            <div className="card bg-base-100 shadow-xl p-5">
+          {blodCard.map((blog, index) => (
+            <div key={index} className="card bg-base-100 shadow-xl p-5">
               <figure>
                 <img
                   src={blog.image}

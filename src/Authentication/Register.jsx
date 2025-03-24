@@ -9,23 +9,26 @@ import useAuth from "../Hooks/useAuth";
 export default function Register() {
   let { createRegistered, googleSign, updateUserProfile } = useAuth();
   let link = useNavigate();
-  let handlesubmit = (e) => {
+  let handlesubmit = async (e) => {
     e.preventDefault();
     let name = e.target.name.value;
     let email = e.target.email.value;
     let password = e.target.password.value;
     let photo = e.target.photo.value;
     let profileUpdates = {
-      diplayName: name,
-      photoUrl: photo,
+      displayName: name,
+      photoURL: photo,
     };
-    // console.log(name,email,password,photo)
-    createRegistered(email, password).then((res) => {
-      updateUserProfile(res.user, profileUpdates).then((res) => {
-        alert("Profile Updated");
-        link("/");
-      });
-    });
+
+    try {
+      const res = await createRegistered(email, password);
+      await updateUserProfile(res.user, profileUpdates);
+
+      alert("Profile Updated");
+      link("/");
+    } catch (error) {
+      console.log("Error in singup", error);
+    }
   };
   return (
     <div className="flex min-h-screen ">
